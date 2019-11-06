@@ -4,12 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> 
+    <title>Vattennivåer</title>
+    
 </head>
 <body>
-    <h1>HEJ</h1>
-    
+    <h1>Vattennivåer i Mölndalsån</h1>
+
+    <form id="main-form" class="flex">
+
+        <div class="flex-item">
+            <p>Mätplats:</p>
+            <select name="measuresites" id="select-measuresite"></select>
+        </div>
+
+        <div class="flex-item">
+            <p>Mätparametrar:</p>
+            <input type="checkbox" name="Level" value="Level"> Vattennivå
+            <br>
+            <input type="checkbox" name="Tapping" value="Tapping"> Tappning
+            <br>
+            <input type="checkbox" name="RainFall" value="RainFall"> Nederbörd
+            <br>
+            <input type="checkbox" name="LevelDownstream" value="LevelDownstream"> Nivå nedströms
+            <br>
+            <input type="checkbox" name="Flow" value="Flow"> Flöde
+            <br>
+        </div>
+
+        <div class="flex-item">
+            <p>Från och med: </p>
+            <input type="date" name="date">
+        </div>
+        <div class="flex-item">
+            <p>Till och med: </p>
+            <input type="date" name="date">
+        </div>
+    </form>
+
+    <script src="main.js"></script>
 </body>
-<script src="main.js"></script>
 </html>

@@ -28,9 +28,12 @@ var endDate;
 // Historical data
 var historicalData;
 
-// Table
+// Table: Current data
 var firstTableBody;
 var tr;
+
+// Table: Historical data
+var historicalTableBody;
 
 // Get Data with Fetch 
 function getData(url) {
@@ -139,6 +142,13 @@ function render() {
 function renderHistData() {
     alert("Hello");
     historicalData.innerHTML = url2;
+
+    resHis.forEach((row) => {
+        // Table Content
+        tr = document.createElement("tr");
+        tr.innerHTML = "<td>" + row.TimeStamp + "</td>" + "<td>" + row.Value + "</td>";
+        historicalTableBody.appendChild(tr);
+    });
 }
 
 
@@ -175,6 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Historical data
     historicalData = document.getElementById("historical-data");
+    historicalTableBody = document.querySelector("#hist-value-table > tbody");
 
     // Table
     firstTableBody = document.querySelector("#curr-value-table > tbody");

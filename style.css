@@ -73,7 +73,8 @@ h2 {
     margin: 1rem auto 5rem;
 }
 
-#curr-value-table {
+#curr-value-table,
+#hist-value-table {
     width: 100%;
     margin: auto;
     padding: 2rem;
@@ -81,7 +82,8 @@ h2 {
     margin: auto;
 }
 
-#curr-value-table th {
+#curr-value-table th,
+#hist-value-table th {
     text-align: left;
     font-weight: bold;
     border-bottom: 1px solid black;
@@ -90,15 +92,18 @@ h2 {
     padding-left: 1rem;
 }
 
-#curr-value-table td {
+#curr-value-table td,
+#hist-value-table td {
     padding-left: 1rem;
 }
 
-#curr-value-table tr:nth-child(even) {
+#curr-value-table tr:nth-child(even),
+#hist-value-table tr:nth-child(even) {
     background-color: #eff2f6;
 }
 
-#curr-value-table tr:hover {
+#curr-value-table tr:hover,
+#hist-value-table tr:hover {
     background-color: #5883a3;
     color: white;
 }

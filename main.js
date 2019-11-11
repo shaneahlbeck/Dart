@@ -106,6 +106,29 @@ function render() {
         lats.push(res[i].Lat)
         longs.push(res[i].Long);
     }
+        
+        //Submit Form
+        submitButton.addEventListener('click', function (e) {
+
+            e.preventDefault();
+    
+            var selectedIdx = selectMeasuresite.selectedIndex;
+            var selectedOpt = selectMeasuresite.options;
+            //alert(selectedOpt[selectedIdx].text);
+    
+            for (var i = 0; i < measureParameters.length; i++) {
+                if (measureParameters[i].checked) {
+                    selectedMeasureParameter = measureParameters[i].value
+                    //alert(selectedMeasureParameter);
+                }
+            }
+            //alert(startDate.value);
+            //alert(endDate.value);
+    
+            url2 += "/" + selectedOpt[selectedIdx].text + "/" + selectedMeasureParameter + "/" + startDate.value + "/" + endDate.value + '?format=json&limit=10';
+            getHistoricalData(url2)
+    
+        });
 
 }
 
@@ -113,7 +136,7 @@ function render() {
 // Render Historical Data
 function renderHistData() {
     alert("Hello");
-    //historicalData.innerHTML = url2 + "/" + selectedOpt[selectedIdx].text + "/" + selectedMeasureParameter + "/" + startDate.value + "/" + endDate.value + '?format=json&limit=10';
+    historicalData.innerHTML ="HEJ";
 }
 
 
@@ -145,13 +168,11 @@ function initMap() {
 // EVENT
 document.addEventListener("DOMContentLoaded", function () {
 
+    // Dom Variables
     mainForm = document.getElementById("main-form");
     selectMeasuresite = document.getElementById("select-measuresite");
-    optionMeasuresites;
     submitButton = document.getElementById("submit-button");
     measureParameters = document.getElementsByName("measureparameter");
-    selectedMeasureParameter;
-    selectedMeasureSite;
     startDate = document.getElementById("start-date");
     endDate = document.getElementById("end-date");
 
@@ -163,29 +184,5 @@ document.addEventListener("DOMContentLoaded", function () {
     tr;
 
     getData(url1), initMap();
-
-
-    //Submit Form
-    submitButton.addEventListener('click', function (e) {
-
-        e.preventDefault();
-
-        var selectedIdx = selectMeasuresite.selectedIndex;
-        var selectedOpt = selectMeasuresite.options;
-        //alert(selectedOpt[selectedIdx].text);
-
-        for (var i = 0; i < measureParameters.length; i++) {
-            if (measureParameters[i].checked) {
-                selectedMeasureParameter = measureParameters[i].value
-                //alert(selectedMeasureParameter);
-            }
-        }
-        //alert(startDate.value);
-        //alert(endDate.value);
-
-        historicalData.innerHTML = url2 + "/" + selectedOpt[selectedIdx].text + "/" + selectedMeasureParameter + "/" + startDate.value + "/" + endDate.value + '?format=json&limit=10';
-        getHistoricalData(url2)
-
-    })
 
 })

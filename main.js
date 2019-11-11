@@ -26,7 +26,6 @@ var startDate;
 var endDate;
 
 // Historical data
-var historicalData;
 var histCaption;
 
 // Table: Current data
@@ -141,8 +140,6 @@ function render() {
 
 // Render Historical Data
 function renderHistData() {
-    alert("Hello");
-    historicalData.innerHTML = selectedMeasureSite;
     histCaption.innerHTML = selectedMeasureSite;
 
 
@@ -187,7 +184,6 @@ document.addEventListener("DOMContentLoaded", function () {
     endDate = document.getElementById("end-date");
 
     // Historical data
-    historicalData = document.getElementById("historical-data");
     historicalTableBody = document.querySelector("#hist-value-table > tbody");
     histCaption = document.getElementById("hist-caption");
 

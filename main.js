@@ -1,3 +1,4 @@
+
 //VARIABLES
 // Respons
 var res;
@@ -60,11 +61,11 @@ function getHistoricalData(url) {
 
 // Render Function
 function render() {
-
     //console.log(JSON.stringify(res));
 
     // Create Option-element for each Measuresite
     for (var i = 0; i < res.length; i++) {
+
         optionMeasuresites = document.createElement("option");
         optionMeasuresites.innerHTML = res[i].Code;
         selectMeasuresite.appendChild(optionMeasuresites);

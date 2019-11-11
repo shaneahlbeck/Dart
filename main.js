@@ -27,6 +27,7 @@ var endDate;
 
 // Historical data
 var historicalData;
+var histCaption;
 
 // Table: Current data
 var firstTableBody;
@@ -129,7 +130,7 @@ function render() {
         }
         //alert(startDate.value);
         //alert(endDate.value);
-
+        selectedMeasureSite = selectedOpt[selectedIdx].text;
         url2 = 'http://data.goteborg.se/RiverService/v1.1/Measurements/f7a16e1a-1f8f-44f7-9230-54bdc02ac2ba';
         url2 += "/" + selectedOpt[selectedIdx].text + "/" + selectedMeasureParameter + "/" + startDate.value + "/" + endDate.value + '?format=json&limit=10';
         getHistoricalData(url2)
@@ -141,7 +142,9 @@ function render() {
 // Render Historical Data
 function renderHistData() {
     alert("Hello");
-    historicalData.innerHTML = url2;
+    historicalData.innerHTML = selectedMeasureSite;
+    histCaption.innerHTML = selectedMeasureSite;
+
 
     resHis.forEach((row) => {
         // Table Content
@@ -186,6 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Historical data
     historicalData = document.getElementById("historical-data");
     historicalTableBody = document.querySelector("#hist-value-table > tbody");
+    histCaption = document.getElementById("hist-caption");
 
     // Table
     firstTableBody = document.querySelector("#curr-value-table > tbody");

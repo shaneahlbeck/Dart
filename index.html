@@ -1,47 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="style.css">
     <title>Vattennivåer</title>
-    
+
 </head>
+
 <body>
-    <h1>Vattennivåer i Mölndalsån</h1>
+    <main>
+        <!--Header-->
+        <header id="main-header">
+            <h1>Vattenflöden i Mölndalsån</h1>
+            <h2>- Ett gemensamt samarbete mellan Göteborgs stad, Mölndals stad och Härryda kommun</h2>
+        </header>
 
-    <form id="main-form" class="flex">
+        <!--Map Section-->
+        <section id="map-section">
+            <div class="grid-item">
+                <header>
+                    <h3>Balansera risken mellan översvämmningar och vattenbrist</h3>
+                </header>
+                <p>Mölndalsån har en lång historia av översvämningar. De kraftiga regnen under 2006 och 2007 ledde till
+                    särskilt besvärliga
+                    översvämningar på flera platser. Det drabbade många
+                    enskilda och vattnet orsakade stora skador på fastigheter
+                    och vägar. Efter översvämningarna 2006 inleddes ett arbete
+                    mellan Göteborgs stad, Mölndals stad och Härryda kommun
+                    för att skapa förutsättningar för att samordna regleringen.
+                    Tillsammans ville man göra en plan för regleringen, hitta
+                    samarbetsformer och tekniska lösningar för att på ett långsiktigt och ekonomiskt hållbart sätt kunna
+                    styra vattenmängderna i ån så att det varken blir översvämning eller vattenbrist.</p>
+                <footer>
+                    <p>Datum: 2019-11-10, Skribent: Nils Nilsson</p>
+                </footer>
+            </div>
+            <div class="grid-item">
+                <div id="map"></div>
+            </div>
+        </section>
 
-        <div class="flex-item">
-            <p>Mätplats:</p>
-            <select name="measuresites" id="select-measuresite"></select>
+        <!--Table-->
+        <div class="resp-x">
+            <table id="curr-value-table">
+                <caption id="caption-top">Senast uppmätta vattennivåer</caption>
+                <tr>
+                    <th>Mätplats</th>
+                    <th>Vattennivå</th>
+                    <th>DG</th>
+                    <th>SG</th>
+                    <th>Normalt</th>
+                </tr>
+                <tbody>
+
+                </tbody>
+                <caption id="caption-bottom">*Anges i meter i höjdsystemet RH2000, DG = Dämningsgräns, SG =
+                    Sänkningsgräns, DG > Normalt > SG </caption>
+            </table>
         </div>
 
-        <div class="flex-item">
-            <p>Mätparametrar:</p>
-            <input type="checkbox" name="Level" value="Level"> Vattennivå
-            <br>
-            <input type="checkbox" name="Tapping" value="Tapping"> Tappning
-            <br>
-            <input type="checkbox" name="RainFall" value="RainFall"> Nederbörd
-            <br>
-            <input type="checkbox" name="LevelDownstream" value="LevelDownstream"> Nivå nedströms
-            <br>
-            <input type="checkbox" name="Flow" value="Flow"> Flöde
-            <br>
-        </div>
+        <!--Historical data section-->
+        <h2 class="header">Hämta historisk data</h2>
 
-        <div class="flex-item">
-            <p>Från och med: </p>
-            <input type="date" name="date">
-        </div>
-        <div class="flex-item">
-            <p>Till och med: </p>
-            <input type="date" name="date">
-        </div>
-    </form>
+        <!--Form-->
+        <form id="main-form" class="grid">
+            <div class="grid-item">
+                <p>Mätplats:</p>
+                <select name="measuresites" id="select-measuresite"></select>
+            </div>
+            <div class="grid-item">
+                <p>Mätparametrar:</p>
+                <input type="radio" name="measureparameter" value="Level"> Vattennivå
+                <br>
+                <input type="radio" name="measureparameter" value="Tapping"> Tappning
+                <br>
+                <input type="radio" name="measureparameter" value="RainFall"> Nederbörd
+                <br>
+                <input type="radio" name="measureparameter" value="LevelDownstream"> Nivå nedströms
+                <br>
+                <input type="radio" name="measureparameter" value="Flow"> Flöde
+                <br>
+            </div>
 
-    <script src="main.js"></script>
+            <div class="grid-item">
+                <p>Från och med: </p>
+                <input type="date" name="start-date" id="start-date">
+
+                <p>Till och med: </p>
+                <input type="date" name="end-date" id="end-date">
+            </div>
+
+            <div class="grid-item">
+                <input type="submit" value="Hämta Data" id="submit-button">
+            </div>
+        </form>
+
+        <!--Display historical data-->
+        <p id="historical-data">
+            Här ska den historiska datan visas
+        </p>
+
+        <!--Footer-->
+        <footer id="main-footer">
+            <p>Data hämtad ifrån <a href="http://data.goteborg.se/">data.goteborg.se</a></p>
+            <p><span class="red">&copy;</span> 2019</p>
+        </footer>
+
+        <!--Script-tags-->
+        <script src="main.js"></script>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDtnzt80jo1FmFo0zx8E338lNLDuVLNeSI&callback=initMap">
+        </script>
+    </main>
 </body>
+
 </html>

@@ -1,34 +1,215 @@
-{
+/* Google Fonts
+---------------------------------------------------------------------------------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Kalam:300,400|Open+Sans:300,400,600&display=swap');
+
+/*
+font-family: 'Open Sans', sans-serif;
+font-family: 'Kalam', cursive;
+*/
+
+/* CSS-Reset
+--------------------------------------------------------------------------------*/
+* {
     margin: 0;
     padding: 0;
-    line-height: 1.6em;
     box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.6em;
 }
 
-body {
-    padding: 2rem;
+/* Main
+--------------------------------------------------------------------------------*/
+main {
+    width: 80vw;
+    margin: 2rem auto 0;
+}
+
+/* Header
+--------------------------------------------------------------------------------*/
+#main-header {
+    border-bottom: 1px solid black;
+    margin-bottom: 2rem;
 }
 
 h1 {
-    padding: 2rem 0;
+    font-size: 2.2em;
+
 }
 
-form {
-    padding: 1rem;
-    background-color: #deeaee;
-    border: 0.6px solid black;
+h2 {
+    font-size: 1.4em;
+    color: #b13535;
+    padding-bottom: 1rem;
+    margin: auto;
 }
 
-form p {
+/* Map Section
+-------------------------------------------------------------------------------*/
+#map-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+    margin: 4rem auto;
+}
+
+#map-section h3 {
+    font-size: 0.9em;
     text-transform: uppercase;
-    padding-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
+}
+
+#map-section footer p {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 0.8em;
+    margin-top: 1.2rem;
+}
+
+/* Table
+-----------------------------------------------------------------------------------------------*/
+.resp-x {
+    overflow-x: auto;
+    margin: 1rem auto 5rem;
+}
+
+#curr-value-table {
+    width: 100%;
+    margin: auto;
+    padding: 2rem;
+    border: 1px solid black;
+    margin: auto;
+}
+
+#curr-value-table th {
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    background-color: #5883a3;
+    color: white;
+    padding-left: 1rem;
+}
+
+#curr-value-table td {
+    padding-left: 1rem;
+}
+
+#curr-value-table tr:nth-child(even) {
+    background-color: #eff2f6;
+}
+
+#curr-value-table tr:hover {
+    background-color: #5883a3;
+    color: white;
+}
+
+#caption-top {
+    text-align: left;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-top: 2rem;
+}
+
+#caption-bottom {
+    caption-side: bottom;
+    font-size: 0.8em;
+}
+
+/* Historical data
+--------------------------------------------------------------------------------------*/
+
+/* Header design */
+.header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    text-align: center;
+    grid-gap: 20px;
+    width: 100%;
+    margin: 0 auto 1rem;
+
+    /* Font-styling */
+    text-transform: uppercase;
+    font-size: 1.6rem;
+}
+
+.header:before,
+.header:after {
+    content: '';
+    border-top: 1.4px solid black;
 }
 
 
-.flex {
-    display: flex;
+/* Footer
+-------------------------------------------------------------------------------------*/
+
+
+
+#main-footer {
+    border-top: 1px solid black;
+    width: 100%;
+    margin: 3rem auto 0;
+    padding: 1rem;
+
 }
 
-.flex-item {
-    padding: 1rem 2rem;
+#main-footer>p {
+    text-align: center;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1em;
+    margin: auto;
+}
+
+.red {
+    color: #b13535;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    border: 1.2px solid #5883a3;
+}
+
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #eff2f6;
+    border: 1px solid black;
+}
+
+#submit-button {
+    padding: 0.5rem 1rem;
+    margin-top: 1.4rem;
+    background-color: #5883a3;
+    color: white;
+    text-transform: uppercase;
+}
+
+#submit-button:hover {
+    background-color: white;
+    color: #5883a3;
+    font-weight: bold;
+    border: 1px solid #5883a3;
+    cursor: pointer;
+}
+
+a:link,
+a:visited {
+    color: #5883a3;
+    text-decoration: none;
+
+}
+
+a:hover,
+a:active {
+    color: #b13535;
+    text-decoration: underline;
 }

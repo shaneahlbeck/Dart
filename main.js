@@ -1,4 +1,3 @@
-
 //VARIABLES
 // Respons
 var res;
@@ -56,7 +55,10 @@ function getHistoricalData(url) {
         .then(function (myRes2) {
             resHis = myRes2;
             renderHistData();
-        });
+        })
+        .catch(function (e) {
+            console.error(e);
+        })
 }
 
 // Render Function
@@ -106,37 +108,37 @@ function render() {
         lats.push(res[i].Lat)
         longs.push(res[i].Long);
     }
-        
-        //Submit Form
-        submitButton.addEventListener('click', function (e) {
 
-            e.preventDefault();
-    
-            var selectedIdx = selectMeasuresite.selectedIndex;
-            var selectedOpt = selectMeasuresite.options;
-            //alert(selectedOpt[selectedIdx].text);
-    
-            for (var i = 0; i < measureParameters.length; i++) {
-                if (measureParameters[i].checked) {
-                    selectedMeasureParameter = measureParameters[i].value
-                    //alert(selectedMeasureParameter);
-                }
+    //Submit Form
+    submitButton.addEventListener('click', function (e) {
+
+        e.preventDefault();
+
+        var selectedIdx = selectMeasuresite.selectedIndex;
+        var selectedOpt = selectMeasuresite.options;
+        //alert(selectedOpt[selectedIdx].text);
+
+        for (var i = 0; i < measureParameters.length; i++) {
+            if (measureParameters[i].checked) {
+                selectedMeasureParameter = measureParameters[i].value
+                //alert(selectedMeasureParameter);
             }
-            //alert(startDate.value);
-            //alert(endDate.value);
-    
-            url2 += "/" + selectedOpt[selectedIdx].text + "/" + selectedMeasureParameter + "/" + startDate.value + "/" + endDate.value + '?format=json&limit=10';
-            getHistoricalData(url2)
-    
-        });
+        }
+        //alert(startDate.value);
+        //alert(endDate.value);
 
+        url2 = 'http://data.goteborg.se/RiverService/v1.1/Measurements/f7a16e1a-1f8f-44f7-9230-54bdc02ac2ba';
+        url2 += "/" + selectedOpt[selectedIdx].text + "/" + selectedMeasureParameter + "/" + startDate.value + "/" + endDate.value + '?format=json&limit=10';
+        getHistoricalData(url2)
+
+    });
 }
 
 
 // Render Historical Data
 function renderHistData() {
     alert("Hello");
-    historicalData.innerHTML ="HEJ";
+    historicalData.innerHTML = url2;
 }
 
 
@@ -159,11 +161,6 @@ function initMap() {
             map: map
         });
 }
-
-// VARIABLES
-
-
-
 
 // EVENT
 document.addEventListener("DOMContentLoaded", function () {

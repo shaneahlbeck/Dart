@@ -25,6 +25,8 @@ var selectedMeasureSite;
 var startDate;
 var endDate;
 
+var thMeasureparameter;
+
 // Historical data
 var histCaption;
 var faultMessage;
@@ -145,7 +147,46 @@ function render() {
 
 // Render Historical Data
 function renderHistData() {
-    histCaption.innerHTML = selectedMeasureSite;
+
+    if (selectedMeasureSite == "Arketjarn") {
+        histCaption.innerHTML = "Arketjärn";
+    } else if (selectedMeasureSite == "Garda") {
+        histCaption.innerHTML = "Gårda dämme";
+    } else if (selectedMeasureSite == "Harsjo") {
+        histCaption.innerHTML = "Härsjö dämme";
+    } else if (selectedMeasureSite == "Kalleredsbacken") {
+        histCaption.innerHTML = "Kålleredsbäcken";
+    } else if (selectedMeasureSite == "Landvetter") {
+        histCaption.innerHTML = "Landvettersjöns dämme";
+    } else if (selectedMeasureSite == "Levgrensvagen") {
+        histCaption.innerHTML = "Levgrensvägen";
+    } else if (selectedMeasureSite == "Larjean") {
+        histCaption.innerHTML = "Lärjeholm";
+    } else if (selectedMeasureSite == "MolndalCentrum") {
+        histCaption.innerHTML = "Mölndal C";
+    } else if (selectedMeasureSite == "Nedsjon") {
+        histCaption.innerHTML = "Nedsjöns dämme";
+    } else if (selectedMeasureSite == "Rada") {
+        histCaption.innerHTML = "Rådasjön";
+    } else if (selectedMeasureSite == "Skars led") {
+        histCaption.innerHTML = "Skårs led";
+    } else if (selectedMeasureSite == "Stensjon") {
+        histCaption.innerHTML = "Stensjö dämme";
+    } else {
+        histCaption.innerHTML = selectedMeasureSite;
+    }
+
+    if (selectedMeasureParameter == "Level") {
+        thMeasureparameter.innerHTML = "Vattennivå (m, RH2000)";
+    } else if (selectedMeasureParameter == "Tapping") {
+        thMeasureparameter.innerHTML = "Tappning (m, RH2000)";
+    } else if (selectedMeasureParameter == "RainFall") {
+        thMeasureparameter.innerHTML = "Nederbörd (mm/h)";
+    } else if (selectedMeasureParameter == "LevelDownstream") {
+        thMeasureparameter.innerHTML = "Nivå nedströms (m, RH2000)";
+    } else if (selectedMeasureParameter == "Flow") {
+        thMeasureparameter.innerHTML = "Flöde (m<sup>3</sup>/s)";
+    }
 
     historicalTableBody.innerHTML = null;
 
@@ -205,6 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
     historicalTableBody = document.getElementById("t-body");
     histCaption = document.getElementById("hist-caption");
     faultMessage = document.getElementById("fault-message");
+    thMeasureparameter = document.getElementById("measureparameter");
 
     // Table
     firstTableBody = document.querySelector("#curr-value-table > tbody");

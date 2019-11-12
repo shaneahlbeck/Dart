@@ -37,6 +37,7 @@ var firstTableBody;
 var tr;
 
 // Table: Historical data
+var historicalTable;
 var historicalTableBody;
 
 // Get Data with Fetch 
@@ -200,12 +201,12 @@ function renderHistData() {
         historicalTableBody.appendChild(tr);
     });
 
-
     if (historicalTableBody.innerHTML == "") {
         faultMessage.style.display = "block";
-        faultMessage.innerHTML = "<h4>Felmeddelande:</h4><p>Det finns ingen data att visa för valda datum för angiven mätparameter och mätplats (" + selectedMeasureSite + "). Vänligen försök igen med nya datum alternativt ändra din mätparameter eller mätplats.</p>";
+        faultMessage.innerHTML = "<h4>Felmeddelande:</h4><p>Det finns ingen data att visa för valda datum för angiven mätparameter och mätplats. Vänligen försök igen med nya datum alternativt ändra din mätparameter eller mätplats.</p>";
     } else {
         faultMessage.style.display = "none";
+        historicalTable.style.display = "table";
     }
 }
 
@@ -242,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
     endDate = document.getElementById("end-date");
 
     // Historical data
-    //historicalTableBody = document.querySelector("#hist-value-table > tbody");
+    historicalTable = document.getElementById("hist-value-table");
     historicalTableBody = document.getElementById("t-body");
     histCaption = document.getElementById("hist-caption");
     faultMessage = document.getElementById("fault-message");
@@ -251,6 +252,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Table
     firstTableBody = document.querySelector("#curr-value-table > tbody");
     tr;
+
+    historicalTable.style.display = "none";
 
     getData(url1), initMap();
 

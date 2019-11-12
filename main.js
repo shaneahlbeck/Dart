@@ -28,6 +28,7 @@ var endDate;
 // Historical data
 var histCaption;
 var faultMessage;
+var newDateFormat;
 
 // Table: Current data
 var firstTableBody;
@@ -149,11 +150,15 @@ function renderHistData() {
     historicalTableBody.innerHTML = null;
 
     resHis.forEach((row) => {
+
+        newDateFormat = new Date(parseInt(row.TimeStamp.slice(6, -7))).toLocaleDateString();
+
         // Table Content
         tr = document.createElement("tr");
-        tr.innerHTML = "<td>" + row.TimeStamp + "</td>" + "<td>" + row.Value + "</td>";
+        tr.innerHTML = "<td>" + newDateFormat + "</td>" + "<td>" + row.Value + "</td>";
         historicalTableBody.appendChild(tr);
     });
+
 
     if (historicalTableBody.innerHTML == "") {
         faultMessage.style.display = "block";

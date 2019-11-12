@@ -146,6 +146,17 @@ h2 {
     border-top: 1.4px solid black;
 }
 
+#fault-message {
+    margin: 4rem auto;
+    padding: 2rem;
+    border: 4px double #b13535;
+    display: none;
+}
+
+#fault-message h4 {
+    margin-bottom: 0.8rem;
+    text-decoration: underline;
+}
 
 /* Footer
 -------------------------------------------------------------------------------------*/
@@ -218,4 +229,14 @@ a:hover,
 a:active {
     color: #b13535;
     text-decoration: underline;
+}
+
+form #start-date {
+    margin-bottom: 0.6rem;
+}
+
+select,
+option,
+input {
+    cursor: pointer;
 }

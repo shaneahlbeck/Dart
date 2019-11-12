@@ -25,14 +25,19 @@ var selectedMeasureSite;
 var startDate;
 var endDate;
 
+var thMeasureparameter;
+
 // Historical data
-var historicalData;
+var histCaption;
+var faultMessage;
+var newDateFormat;
 
 // Table: Current data
 var firstTableBody;
 var tr;
 
 // Table: Historical data
+var historicalTable;
 var historicalTableBody;
 
 // Get Data with Fetch 
@@ -75,6 +80,10 @@ function render() {
         optionMeasuresites.innerHTML = res[i].Code;
         selectMeasuresite.appendChild(optionMeasuresites);
     }
+
+    // Set maximum date in formular to today's date
+    startDate.max = new Date().toISOString().split("T")[0];
+    endDate.max = new Date().toISOString().split("T")[0];
 
     //Create Table
     res.forEach((row) => {
@@ -123,13 +132,12 @@ function render() {
 
         for (var i = 0; i < measureParameters.length; i++) {
             if (measureParameters[i].checked) {
-                selectedMeasureParameter = measureParameters[i].value
+                selectedMeasureParameter = measureParameters[i].value;
                 //alert(selectedMeasureParameter);
             }
         }
-        //alert(startDate.value);
-        //alert(endDate.value);
 
+        selectedMeasureSite = selectedOpt[selectedIdx].text;
         url2 = 'http://data.goteborg.se/RiverService/v1.1/Measurements/f7a16e1a-1f8f-44f7-9230-54bdc02ac2ba';
         url2 += "/" + selectedOpt[selectedIdx].text + "/" + selectedMeasureParameter + "/" + startDate.value + "/" + endDate.value + '?format=json&limit=10';
         getHistoricalData(url2)
@@ -140,15 +148,66 @@ function render() {
 
 // Render Historical Data
 function renderHistData() {
-    alert("Hello");
-    historicalData.innerHTML = url2;
+
+    if (selectedMeasureSite == "Arketjarn") {
+        histCaption.innerHTML = "Arketjärn";
+    } else if (selectedMeasureSite == "Garda") {
+        histCaption.innerHTML = "Gårda dämme";
+    } else if (selectedMeasureSite == "Harsjo") {
+        histCaption.innerHTML = "Härsjö dämme";
+    } else if (selectedMeasureSite == "Kalleredsbacken") {
+        histCaption.innerHTML = "Kålleredsbäcken";
+    } else if (selectedMeasureSite == "Landvetter") {
+        histCaption.innerHTML = "Landvettersjöns dämme";
+    } else if (selectedMeasureSite == "Levgrensvagen") {
+        histCaption.innerHTML = "Levgrensvägen";
+    } else if (selectedMeasureSite == "Larjean") {
+        histCaption.innerHTML = "Lärjeholm";
+    } else if (selectedMeasureSite == "MolndalCentrum") {
+        histCaption.innerHTML = "Mölndal C";
+    } else if (selectedMeasureSite == "Nedsjon") {
+        histCaption.innerHTML = "Nedsjöns dämme";
+    } else if (selectedMeasureSite == "Rada") {
+        histCaption.innerHTML = "Rådasjön";
+    } else if (selectedMeasureSite == "Skars led") {
+        histCaption.innerHTML = "Skårs led";
+    } else if (selectedMeasureSite == "Stensjon") {
+        histCaption.innerHTML = "Stensjö dämme";
+    } else {
+        histCaption.innerHTML = selectedMeasureSite;
+    }
+
+    if (selectedMeasureParameter == "Level") {
+        thMeasureparameter.innerHTML = "Vattennivå (m, RH2000)";
+    } else if (selectedMeasureParameter == "Tapping") {
+        thMeasureparameter.innerHTML = "Tappning (m, RH2000)";
+    } else if (selectedMeasureParameter == "RainFall") {
+        thMeasureparameter.innerHTML = "Nederbörd (mm/h)";
+    } else if (selectedMeasureParameter == "LevelDownstream") {
+        thMeasureparameter.innerHTML = "Nivå nedströms (m, RH2000)";
+    } else if (selectedMeasureParameter == "Flow") {
+        thMeasureparameter.innerHTML = "Flöde (m<sup>3</sup>/s)";
+    }
+
+    historicalTableBody.innerHTML = null;
 
     resHis.forEach((row) => {
+
+        newDateFormat = new Date(parseInt(row.TimeStamp.slice(6, -7))).toLocaleDateString();
+
         // Table Content
         tr = document.createElement("tr");
-        tr.innerHTML = "<td>" + row.TimeStamp + "</td>" + "<td>" + row.Value + "</td>";
+        tr.innerHTML = "<td>" + newDateFormat + "</td>" + "<td>" + row.Value + "</td>";
         historicalTableBody.appendChild(tr);
     });
+
+    if (historicalTableBody.innerHTML == "") {
+        faultMessage.style.display = "block";
+        faultMessage.innerHTML = "<h4>Felmeddelande:</h4><p>Det finns ingen data att visa för valda datum för angiven mätparameter och mätplats. Vänligen försök igen med nya datum alternativt ändra din mätparameter eller mätplats.</p>";
+    } else {
+        faultMessage.style.display = "none";
+        historicalTable.style.display = "table";
+    }
 }
 
 
@@ -184,12 +243,17 @@ document.addEventListener("DOMContentLoaded", function () {
     endDate = document.getElementById("end-date");
 
     // Historical data
-    historicalData = document.getElementById("historical-data");
-    historicalTableBody = document.querySelector("#hist-value-table > tbody");
+    historicalTable = document.getElementById("hist-value-table");
+    historicalTableBody = document.getElementById("t-body");
+    histCaption = document.getElementById("hist-caption");
+    faultMessage = document.getElementById("fault-message");
+    thMeasureparameter = document.getElementById("measureparameter");
 
     // Table
     firstTableBody = document.querySelector("#curr-value-table > tbody");
     tr;
+
+    historicalTable.style.display = "none";
 
     getData(url1), initMap();
 

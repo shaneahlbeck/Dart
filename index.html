@@ -69,48 +69,46 @@
         <form id="main-form" class="grid">
             <div class="grid-item">
                 <p>Mätplats:</p>
-                <select name="measuresites" id="select-measuresite"></select>
+                <select name="measuresites" id="select-measuresite" class="pointer" autofocus></select>
             </div>
             <div class="grid-item">
                 <p>Mätparametrar:</p>
-                <input type="radio" name="measureparameter" value="Level"> Vattennivå
+                <input type="radio" name="measureparameter" value="Level" class="pointer" checked> Vattennivå
                 <br>
-                <input type="radio" name="measureparameter" value="Tapping"> Tappning
+                <input type="radio" name="measureparameter" value="Tapping" class="pointer"> Tappning
                 <br>
-                <input type="radio" name="measureparameter" value="RainFall"> Nederbörd
+                <input type="radio" name="measureparameter" value="RainFall" class="pointer"> Nederbörd
                 <br>
-                <input type="radio" name="measureparameter" value="LevelDownstream"> Nivå nedströms
+                <input type="radio" name="measureparameter" value="LevelDownstream" class="pointer"> Nivå nedströms
                 <br>
-                <input type="radio" name="measureparameter" value="Flow"> Flöde
+                <input type="radio" name="measureparameter" value="Flow" class="pointer"> Flöde
                 <br>
             </div>
 
             <div class="grid-item">
                 <p>Från och med: </p>
-                <input type="date" name="start-date" id="start-date">
+                <input type="date" name="start-date" id="start-date" class="pointer" min="2010-01-01" required>
 
                 <p>Till och med: </p>
-                <input type="date" name="end-date" id="end-date">
+                <input type="date" name="end-date" id="end-date" class="pointer" min="2010-01-01" required>
             </div>
 
             <div class="grid-item">
-                <input type="submit" value="Hämta Data" id="submit-button">
+                <input type="submit" value="Hämta Data" id="submit-button" class="pointer">
             </div>
         </form>
 
         <!--Display historical data-->
-        <p id="historical-data">
-            Här ska den historiska datan visas
-        </p>
 
+        <div id="fault-message"></div>
         <div class="resp-x">
             <table id="hist-value-table">
-                <caption class="caption-top" id="histCaption"></caption>
+                <caption class="caption-top" id="hist-caption"></caption>
                 <tr>
                     <th>Datum</th>
-                    <th>Nivå</th>
+                    <th id="measureparameter">Nivå</th>
                 </tr>
-                <tbody>
+                <tbody id="t-body">
 
                 </tbody>
             </table>

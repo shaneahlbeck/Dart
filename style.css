@@ -230,3 +230,13 @@ a:active {
     color: #b13535;
     text-decoration: underline;
 }
+
+form #start-date {
+    margin-bottom: 0.6rem;
+}
+
+select,
+option,
+input {
+    cursor: pointer;
+}

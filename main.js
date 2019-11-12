@@ -27,6 +27,7 @@ var endDate;
 
 // Historical data
 var histCaption;
+var faultMessage;
 
 // Table: Current data
 var firstTableBody;
@@ -76,6 +77,10 @@ function render() {
         selectMeasuresite.appendChild(optionMeasuresites);
     }
 
+    // Set maximum date in formular to today's date
+    startDate.max = new Date().toISOString().split("T")[0];
+    endDate.max = new Date().toISOString().split("T")[0];
+
     //Create Table
     res.forEach((row) => {
 
@@ -123,7 +128,7 @@ function render() {
 
         for (var i = 0; i < measureParameters.length; i++) {
             if (measureParameters[i].checked) {
-                selectedMeasureParameter = measureParameters[i].value
+                selectedMeasureParameter = measureParameters[i].value;
                 //alert(selectedMeasureParameter);
             }
         }
@@ -151,7 +156,10 @@ function renderHistData() {
     });
 
     if (historicalTableBody.innerHTML == "") {
-        alert("Ingen tillgänglig data");
+        faultMessage.style.display = "block";
+        faultMessage.innerHTML = "<h4>Felmeddelande:</h4><p>Det finns ingen data att visa för valda datum för angiven mätparameter och mätplats (" + selectedMeasureSite + "). Vänligen försök igen med nya datum alternativt ändra din mätparameter eller mätplats.</p>";
+    } else {
+        faultMessage.style.display = "none";
     }
 }
 
@@ -191,6 +199,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //historicalTableBody = document.querySelector("#hist-value-table > tbody");
     historicalTableBody = document.getElementById("t-body");
     histCaption = document.getElementById("hist-caption");
+    faultMessage = document.getElementById("fault-message");
 
     // Table
     firstTableBody = document.querySelector("#curr-value-table > tbody");

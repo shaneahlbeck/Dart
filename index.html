@@ -69,11 +69,11 @@
         <form id="main-form" class="grid">
             <div class="grid-item">
                 <p>Mätplats:</p>
-                <select name="measuresites" id="select-measuresite"></select>
+                <select name="measuresites" id="select-measuresite" autofocus></select>
             </div>
             <div class="grid-item">
                 <p>Mätparametrar:</p>
-                <input type="radio" name="measureparameter" value="Level"> Vattennivå
+                <input type="radio" name="measureparameter" value="Level" checked> Vattennivå
                 <br>
                 <input type="radio" name="measureparameter" value="Tapping"> Tappning
                 <br>
@@ -87,10 +87,10 @@
 
             <div class="grid-item">
                 <p>Från och med: </p>
-                <input type="date" name="start-date" id="start-date">
+                <input type="date" name="start-date" id="start-date" min="2010-01-01" required>
 
                 <p>Till och med: </p>
-                <input type="date" name="end-date" id="end-date">
+                <input type="date" name="end-date" id="end-date" min="2010-01-01" required>
             </div>
 
             <div class="grid-item">
@@ -100,6 +100,7 @@
 
         <!--Display historical data-->
 
+        <div id="fault-message"></div>
         <div class="resp-x">
             <table id="hist-value-table">
                 <caption class="caption-top" id="hist-caption"></caption>

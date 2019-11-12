@@ -127,8 +127,7 @@ function render() {
                 //alert(selectedMeasureParameter);
             }
         }
-        //alert(startDate.value);
-        //alert(endDate.value);
+
         selectedMeasureSite = selectedOpt[selectedIdx].text;
         url2 = 'http://data.goteborg.se/RiverService/v1.1/Measurements/f7a16e1a-1f8f-44f7-9230-54bdc02ac2ba';
         url2 += "/" + selectedOpt[selectedIdx].text + "/" + selectedMeasureParameter + "/" + startDate.value + "/" + endDate.value + '?format=json&limit=10';
@@ -142,6 +141,7 @@ function render() {
 function renderHistData() {
     histCaption.innerHTML = selectedMeasureSite;
 
+    historicalTableBody.innerHTML = null;
 
     resHis.forEach((row) => {
         // Table Content
@@ -149,6 +149,10 @@ function renderHistData() {
         tr.innerHTML = "<td>" + row.TimeStamp + "</td>" + "<td>" + row.Value + "</td>";
         historicalTableBody.appendChild(tr);
     });
+
+    if (historicalTableBody.innerHTML == "") {
+        alert("Ingen tillgänglig data");
+    }
 }
 
 
@@ -184,7 +188,8 @@ document.addEventListener("DOMContentLoaded", function () {
     endDate = document.getElementById("end-date");
 
     // Historical data
-    historicalTableBody = document.querySelector("#hist-value-table > tbody");
+    //historicalTableBody = document.querySelector("#hist-value-table > tbody");
+    historicalTableBody = document.getElementById("t-body");
     histCaption = document.getElementById("hist-caption");
 
     // Table

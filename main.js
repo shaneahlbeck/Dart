@@ -139,6 +139,8 @@ function render() {
         // getHistData(url2)
         getHistData(url2)
     });
+
+    initMap()
 }
 
 
@@ -217,9 +219,7 @@ function renderHistData() {
 // Init Map 
 function initMap() {
 
-    var lats = [57.7898, 57.66263, 57.6966, 57.707757, 57.70838, 57.609903, 57.661713, 57.70442, 57.765768, 57.656882, 57.705738, 57.658897, 57.687418, 57.707466, 57.655437, 57.7231, 57.68455];
-    var longs = [12.0101, 12.1335, 11.9088, 11.989718, 12.321005, 12.042376, 12.13231, 11.990405, 12.005462, 12.017133, 12.436992, 12.093324, 11.997993, 11.974832, 12.041699, 11.9869, 11.790725];
-    var location = new google.maps.LatLng(57.708870, 11.974560) //{lat: 57.708870, lng: 11.974560}; 
+    var location = new google.maps.LatLng(57.708870, 11.974560)
 
     var map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
@@ -254,6 +254,6 @@ document.addEventListener("DOMContentLoaded", function () {
     histTable.style.display = "none";
 
     // Functions
-    getData(url1), initMap();
+    getData(url1);
 
 })

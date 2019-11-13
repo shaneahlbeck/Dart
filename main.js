@@ -178,15 +178,15 @@ function renderHistData() {
     }
 
     if (selectedMeasureParameter == "Level") {
-        thMeasureparameter.innerHTML = "Vattennivå (m, RH2000)";
+        thMeasureparameter.innerHTML = "Vattennivå <br> (m, RH2000)";
     } else if (selectedMeasureParameter == "Tapping") {
-        thMeasureparameter.innerHTML = "Tappning (m, RH2000)";
+        thMeasureparameter.innerHTML = "Tappning <br> (m, RH2000)";
     } else if (selectedMeasureParameter == "RainFall") {
-        thMeasureparameter.innerHTML = "Nederbörd (mm/h)";
+        thMeasureparameter.innerHTML = "Nederbörd <br> (mm/h)";
     } else if (selectedMeasureParameter == "LevelDownstream") {
-        thMeasureparameter.innerHTML = "Nivå nedströms (m, RH2000)";
+        thMeasureparameter.innerHTML = "Nivå nedströms <br> (m, RH2000)";
     } else if (selectedMeasureParameter == "Flow") {
-        thMeasureparameter.innerHTML = "Flöde (m<sup>3</sup>/s)";
+        thMeasureparameter.innerHTML = "Flöde <br>(m<sup>3</sup>/s)";
     }
 
     historicalTableBody.innerHTML = null;
@@ -202,8 +202,9 @@ function renderHistData() {
     });
 
     if (historicalTableBody.innerHTML == "") {
+        historicalTable.style.display = "none";
         faultMessage.style.display = "block";
-        faultMessage.innerHTML = "<h4>Felmeddelande:</h4><p>Det finns ingen data att visa för valda datum för angiven mätparameter och mätplats. Vänligen försök igen med nya datum alternativt ändra din mätparameter eller mätplats.</p>";
+        faultMessage.innerHTML = "<h4>Ingen tillgänglig data</h4><p>Det finns ingen data att visa för valda datum för angiven mätparameter och mätplats. Vänligen försök igen med nya datum alternativt ändra din mätparameter eller mätplats.</p>";
     } else {
         faultMessage.style.display = "none";
         historicalTable.style.display = "table";

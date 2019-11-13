@@ -20,7 +20,7 @@
 
         <!--Map Section-->
         <section id="map-section">
-            <div class="grid-item">
+            <div>
                 <header>
                     <h3>Balansera risken mellan översvämmningar och vattenbrist</h3>
                 </header>
@@ -35,10 +35,10 @@
                     samarbetsformer och tekniska lösningar för att på ett långsiktigt och ekonomiskt hållbart sätt kunna
                     styra vattenmängderna i ån så att det varken blir översvämning eller vattenbrist.</p>
                 <footer>
-                    <p>Datum: 2019-11-10, Skribent: Nils Nilsson</p>
+                    <p>Datum: 2019-11-10, Skribent: Nina Johansson</p>
                 </footer>
             </div>
-            <div class="grid-item">
+            <div>
                 <div id="map"></div>
             </div>
         </section>
@@ -63,43 +63,42 @@
         </div>
 
         <!--Historical data section-->
-        <h2 class="header">Hämta historisk data</h2>
+        <h2 class="header-design">Hämta historisk data</h2>
 
         <!--Form-->
         <form id="main-form">
             <div class="grid-item">
                 <p>Mätplats:</p>
-                <select name="measuresites" id="select-measuresite" class="pointer" autofocus></select>
+                <select name="measuresites" id="select-measuresite" autofocus></select>
             </div>
             <div class="grid-item">
                 <p>Mätparametrar:</p>
-                <input type="radio" name="measureparameter" value="Level" class="pointer" checked> Vattennivå
+                <input type="radio" name="measureparameter" value="Level" checked> Vattennivå
                 <br>
-                <input type="radio" name="measureparameter" value="Tapping" class="pointer"> Tappning
+                <input type="radio" name="measureparameter" value="Tapping"> Tappning
                 <br>
-                <input type="radio" name="measureparameter" value="RainFall" class="pointer"> Nederbörd
+                <input type="radio" name="measureparameter" value="RainFall"> Nederbörd
                 <br>
-                <input type="radio" name="measureparameter" value="LevelDownstream" class="pointer"> Nivå nedströms
+                <input type="radio" name="measureparameter" value="LevelDownstream"> Nivå nedströms
                 <br>
-                <input type="radio" name="measureparameter" value="Flow" class="pointer"> Flöde
+                <input type="radio" name="measureparameter" value="Flow"> Flöde
                 <br>
             </div>
 
             <div class="grid-item">
                 <p>Från och med: </p>
-                <input type="date" name="start-date" id="start-date" class="pointer" min="2010-01-01" required>
+                <input type="date" name="start-date" id="start-date" min="2010-01-01" required>
 
                 <p>Till och med: </p>
-                <input type="date" name="end-date" id="end-date" class="pointer" min="2010-01-01" required>
+                <input type="date" name="end-date" id="end-date" min="2010-01-01" required>
             </div>
 
             <div class="grid-item">
-                <input type="submit" value="Hämta Data" id="submit-button" class="pointer">
+                <input type="submit" value="Hämta Data" id="submit-button">
             </div>
         </form>
 
         <!--Display historical data-->
-
         <div id="fault-message"></div>
         <div class="resp-x">
             <table id="hist-value-table">

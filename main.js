@@ -1,4 +1,5 @@
 //VARIABLES
+
 // Respons
 var res;
 var url1 = 'http://data.goteborg.se/RiverService/v1.1/MeasureSites/f7a16e1a-1f8f-44f7-9230-54bdc02ac2ba?format=json&limit=10';
@@ -15,7 +16,6 @@ var longs = [];
 var marker;
 
 // Form
-var mainForm;
 var selectMeasuresite;
 var optionMeasuresites;
 var submitButton;
@@ -25,20 +25,18 @@ var selectedMeasureSite;
 var startDate;
 var endDate;
 
-var thMeasureparameter;
-
-// Historical data
-var histCaption;
-var faultMessage;
-var newDateFormat;
-
 // Table: Current data
-var firstTableBody;
+var currValTableBody;
 var tr;
 
 // Table: Historical data
-var historicalTable;
-var historicalTableBody;
+var histTable;
+var histTableBody;
+var histCaption;
+var thMeasureparameter;
+var newDateFormat;
+var faultMessage;
+
 
 // Get Data with Fetch 
 function getData(url) {
@@ -54,7 +52,7 @@ function getData(url) {
 }
 
 // Get Historical Data with Fetch 
-function getHistoricalData(url) {
+function getHistData(url) {
 
     fetch(url)
         .then(function (response) {
@@ -69,26 +67,24 @@ function getHistoricalData(url) {
         })
 }
 
-// Render Function
+// Render Function 
 function render() {
-    //console.log(JSON.stringify(res));
 
-    // Create Option-element for each Measuresite
+    // Create Option-element for Each Measuresite
     for (var i = 0; i < res.length; i++) {
-
         optionMeasuresites = document.createElement("option");
         optionMeasuresites.innerHTML = res[i].Code;
         selectMeasuresite.appendChild(optionMeasuresites);
     }
 
-    // Set maximum date in formular to today's date
+    // Set Maximum Date in Formular to Today's Date
     startDate.max = new Date().toISOString().split("T")[0];
     endDate.max = new Date().toISOString().split("T")[0];
 
     //Create Table
     res.forEach((row) => {
 
-        // If Undefined
+        // If Value is Undefined
         if (row.MeasureParameters[0].CurrentValue == undefined) {
             row.MeasureParameters[0].CurrentValue = "-";
         }
@@ -99,7 +95,7 @@ function render() {
             row.SG = "-";
         }
 
-        // Grade (normal, high, low)
+        // Create Simple Grade (normal, high, low)
         if (row.MeasureParameters[0].CurrentValue < row.SG) {
             var grade = "LÅGT";
         } else if (row.MeasureParameters[0].CurrentValue > row.DG) {
@@ -108,10 +104,10 @@ function render() {
             var grade = "&#10003;";
         }
 
-        // Table Content
+        // Main Table Content
         tr = document.createElement("tr");
         tr.innerHTML = "<td>" + row.Description + "</td>" + "<td>" + row.MeasureParameters[0].CurrentValue + "</td>" + "<td>" + row.DG + "</td>" + "<td>" + row.SG + "</td>" + "<td>" + grade + "</td>";
-        firstTableBody.appendChild(tr);
+        currValTableBody.appendChild(tr);
     });
 
 
@@ -121,27 +117,27 @@ function render() {
         longs.push(res[i].Long);
     }
 
-    //Submit Form
+    //Submit Form ()
     submitButton.addEventListener('click', function (e) {
 
         e.preventDefault();
 
+        // Create URL2
         var selectedIdx = selectMeasuresite.selectedIndex;
         var selectedOpt = selectMeasuresite.options;
-        //alert(selectedOpt[selectedIdx].text);
 
         for (var i = 0; i < measureParameters.length; i++) {
             if (measureParameters[i].checked) {
                 selectedMeasureParameter = measureParameters[i].value;
-                //alert(selectedMeasureParameter);
             }
         }
 
         selectedMeasureSite = selectedOpt[selectedIdx].text;
         url2 = 'http://data.goteborg.se/RiverService/v1.1/Measurements/f7a16e1a-1f8f-44f7-9230-54bdc02ac2ba';
         url2 += "/" + selectedOpt[selectedIdx].text + "/" + selectedMeasureParameter + "/" + startDate.value + "/" + endDate.value + '?format=json&limit=10';
-        getHistoricalData(url2)
 
+        // getHistData(url2)
+        getHistData(url2)
     });
 }
 
@@ -149,6 +145,7 @@ function render() {
 // Render Historical Data
 function renderHistData() {
 
+    // Change from Code Name to Description Name (make a better solution later!)
     if (selectedMeasureSite == "Arketjarn") {
         histCaption.innerHTML = "Arketjärn";
     } else if (selectedMeasureSite == "Garda") {
@@ -177,6 +174,7 @@ function renderHistData() {
         histCaption.innerHTML = selectedMeasureSite;
     }
 
+    // Create Table Header Column After Chosen Measure Parameter
     if (selectedMeasureParameter == "Level") {
         thMeasureparameter.innerHTML = "Vattennivå <br> (m, RH2000)";
     } else if (selectedMeasureParameter == "Tapping") {
@@ -189,25 +187,29 @@ function renderHistData() {
         thMeasureparameter.innerHTML = "Flöde <br>(m<sup>3</sup>/s)";
     }
 
-    historicalTableBody.innerHTML = null;
+    // Start with No Table Content
+    histTableBody.innerHTML = null;
 
+    // Create Table Content
     resHis.forEach((row) => {
 
+        // Change Date Format
         newDateFormat = new Date(parseInt(row.TimeStamp.slice(6, -7))).toLocaleDateString();
 
         // Table Content
         tr = document.createElement("tr");
         tr.innerHTML = "<td>" + newDateFormat + "</td>" + "<td>" + row.Value + "</td>";
-        historicalTableBody.appendChild(tr);
+        histTableBody.appendChild(tr);
     });
 
-    if (historicalTableBody.innerHTML == "") {
-        historicalTable.style.display = "none";
+    // Display Fault Message if No Aviable Data
+    if (histTableBody.innerHTML == "") {
+        histTable.style.display = "none";
         faultMessage.style.display = "block";
         faultMessage.innerHTML = "<h4>Ingen tillgänglig data</h4><p>Det finns ingen data att visa för valda datum för angiven mätparameter och mätplats. Vänligen försök igen med nya datum alternativt ändra din mätparameter eller mätplats.</p>";
     } else {
         faultMessage.style.display = "none";
-        historicalTable.style.display = "table";
+        histTable.style.display = "table";
     }
 }
 
@@ -224,7 +226,7 @@ function initMap() {
         center: location
     });
 
-    // AddMarkers
+    // Add Markers
     for (var i = 0; i < lats.length; i++)
         marker = new google.maps.Marker({
             position: new google.maps.LatLng(lats[i], longs[i]),
@@ -232,30 +234,26 @@ function initMap() {
         });
 }
 
-// EVENT
+// EVENT DOMContentLoaded
 document.addEventListener("DOMContentLoaded", function () {
 
     // Dom Variables
-    mainForm = document.getElementById("main-form");
     selectMeasuresite = document.getElementById("select-measuresite");
     submitButton = document.getElementById("submit-button");
     measureParameters = document.getElementsByName("measureparameter");
+    currValTableBody = document.querySelector("#curr-value-table > tbody");
     startDate = document.getElementById("start-date");
     endDate = document.getElementById("end-date");
-
-    // Historical data
-    historicalTable = document.getElementById("hist-value-table");
-    historicalTableBody = document.getElementById("t-body");
+    histTable = document.getElementById("hist-value-table");
+    histTableBody = document.getElementById("t-body");
     histCaption = document.getElementById("hist-caption");
     faultMessage = document.getElementById("fault-message");
     thMeasureparameter = document.getElementById("measureparameter");
 
-    // Table
-    firstTableBody = document.querySelector("#curr-value-table > tbody");
-    tr;
+    // Hide Historical Data Table
+    histTable.style.display = "none";
 
-    historicalTable.style.display = "none";
-
+    // Functions
     getData(url1), initMap();
 
 })

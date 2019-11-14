@@ -39,6 +39,29 @@ var thMeasureparameter;
 var newDateFormat;
 var faultMessage;
 
+// EVENT DOMContentLoaded
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Dom Variables
+    selectMeasuresite = document.getElementById("select-measuresite");
+    submitButton = document.getElementById("submit-button");
+    measureParameters = document.getElementsByName("measureparameter");
+    currValTableBody = document.querySelector("#curr-value-table > tbody");
+    startDate = document.getElementById("start-date");
+    endDate = document.getElementById("end-date");
+    histTable = document.getElementById("hist-value-table");
+    histTableBody = document.getElementById("t-body");
+    histCaption = document.getElementById("hist-caption");
+    faultMessage = document.getElementById("fault-message");
+    thMeasureparameter = document.getElementById("measureparameter");
+
+    // Hide Historical Data Table
+    histTable.style.display = "none";
+
+    // Functions
+    getData(url1);
+
+})
 
 // Get Data with Fetch 
 function getData(url) {
@@ -53,26 +76,10 @@ function getData(url) {
         });
 }
 
-// Get Historical Data with Fetch 
-function getHistData(url) {
-
-    fetch(url)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (myRes2) {
-            resHis = myRes2;
-            renderHistData();
-        })
-        .catch(function (e) {
-            console.error(e);
-        })
-}
-
 // Render Function 
 function render() {
 
-    // Create Option-element for Each Measuresite
+    // Create Option-element for Each Measuresite 
     for (var i = 0; i < res.length; i++) {
         optionMeasuresites = document.createElement("option");
         optionMeasuresites.innerHTML = res[i].Code;
@@ -146,6 +153,45 @@ function render() {
     initMap()
 }
 
+// Init Map 
+function initMap() {
+    infoWindow = new google.maps.InfoWindow();
+    var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 10,
+        center: new google.maps.LatLng(57.708870, 11.974560)
+    });
+
+    markerNames.forEach((item, index) => {
+        marker = new google.maps.Marker({
+            position: new google.maps.LatLng(lats[index], longs[index]),
+            map: map,
+        });
+
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.close();
+            infoWindow.setContent(`<b>${item}</b>`);
+            infoWindow.open(map, this);
+        });
+
+    })
+
+}
+
+// Get Historical Data with Fetch 
+function getHistData(url) {
+
+    fetch(url)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (myRes2) {
+            resHis = myRes2;
+            renderHistData();
+        })
+        .catch(function (e) {
+            console.error(e);
+        })
+}
 
 // Render Historical Data
 function renderHistData() {
@@ -217,53 +263,3 @@ function renderHistData() {
         histTable.style.display = "table";
     }
 }
-
-
-// Init Map 
-function initMap() {
-    infoWindow = new google.maps.InfoWindow();
-    var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 10,
-        center: new google.maps.LatLng(57.708870, 11.974560)
-    });
-
-    markerNames.forEach((item, index) => {
-        marker = new google.maps.Marker({
-            position: new google.maps.LatLng(lats[index], longs[index]),
-            map: map,
-        });
-
-        google.maps.event.addListener(marker, 'click', function () {
-            infoWindow.close();
-            infoWindow.setContent(`<b>${item}</b>`);
-            infoWindow.open(map, this);
-        });
-
-    })
-
-}
-
-
-// EVENT DOMContentLoaded
-document.addEventListener("DOMContentLoaded", function () {
-
-    // Dom Variables
-    selectMeasuresite = document.getElementById("select-measuresite");
-    submitButton = document.getElementById("submit-button");
-    measureParameters = document.getElementsByName("measureparameter");
-    currValTableBody = document.querySelector("#curr-value-table > tbody");
-    startDate = document.getElementById("start-date");
-    endDate = document.getElementById("end-date");
-    histTable = document.getElementById("hist-value-table");
-    histTableBody = document.getElementById("t-body");
-    histCaption = document.getElementById("hist-caption");
-    faultMessage = document.getElementById("fault-message");
-    thMeasureparameter = document.getElementById("measureparameter");
-
-    // Hide Historical Data Table
-    histTable.style.display = "none";
-
-    // Functions
-    getData(url1);
-
-})

@@ -187,6 +187,10 @@ h2 {
     cursor: pointer;
 }
 
+#submit-button:active {
+    background-color: #dee7ed;
+}
+
 form #start-date {
     margin-bottom: 0.6rem;
 }

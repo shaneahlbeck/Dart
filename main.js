@@ -13,10 +13,9 @@ var url2 = 'http://data.goteborg.se/RiverService/v1.1/Measurements/f7a16e1a-1f8f
 // Map 
 var lats = [];
 var longs = [];
-var mapNames = [];
+var markerNames = [];
 var marker;
-var contentString;
-//var infoWindow;
+var infoWindow;
 
 // Form
 var selectMeasuresite;
@@ -118,7 +117,7 @@ function render() {
     for (var i = 0; i < res.length; i++) {
         lats.push(res[i].Lat)
         longs.push(res[i].Long);
-        mapNames.push(res[i].Description)
+        markerNames.push(res[i].Description)
     }
 
     //Submit Form ()
@@ -222,33 +221,28 @@ function renderHistData() {
 
 // Init Map 
 function initMap() {
-    var location = new google.maps.LatLng(57.708870, 11.974560);
+    infoWindow = new google.maps.InfoWindow();
     var map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
-        center: location
+        center: new google.maps.LatLng(57.708870, 11.974560)
     });
 
-
-    // Add Markers and Info Window
-    for (var i = 0; i < lats.length; i++) {
+    markerNames.forEach((item, index) => {
         marker = new google.maps.Marker({
-            position: new google.maps.LatLng(lats[i], longs[i]),
-            map: map
+            position: new google.maps.LatLng(lats[index], longs[index]),
+            map: map,
         });
 
-        contentString = mapNames[i];
+        google.maps.event.addListener(marker, 'click', function () {
+            infoWindow.close();
+            infoWindow.setContent(`<b>${item}</b>`);
+            infoWindow.open(map, this);
+        });
 
-    }
-
-    var infoWindow = new google.maps.InfoWindow({
-        content: contentString
-    });
-
-    marker.addListener('click', function () {
-        infoWindow.open(map, marker);
-    });
+    })
 
 }
+
 
 // EVENT DOMContentLoaded
 document.addEventListener("DOMContentLoaded", function () {
